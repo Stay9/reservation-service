@@ -1,38 +1,38 @@
-# Reservation Service for Airpnp
+# Reservation Service for Stay9
 
-> Booking module allows user to see general listing details, vacancies in a month, and make a reservation by choosing check-in/check-out dates on a calendar, and specify number of guests.
+> Booking module allows user to see general listing details, vacancies in a month, and make a reservation by choosing check-in/check-out dates on a calendar, and specify number of guests and pets.
 
 ## Related Projects
 
-  - https://github.com/fullstakreaktor/hero-photo-service
-  - https://github.com/fullstakreaktor/Review-service
-  - https://github.com/fullstakreaktor/about-service
-  - https://github.com/fullstakreaktor/kony-proxy
+  - https://github.com/Stay9/Review-Service-1
+  - https://github.com/Stay9/about-service
+  - https://github.com/Stay9/hero-photo-service
+  - https://github.com/Stay9/enji_proxy
 
 ## Table of Contents
 
 1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
+2. [Requirements](#requirements)
+3. [Development](#development)
+4. [API](#API)
 
 ## Usage
 
 > Some usage instructions
 
 ## Requirements
-
-- Node 6.13.0
-- Mysql 5.7.22 
+- Node 8.11.3
+- Mysql 8.0.11
 
 ## Development
 
-### Setting Up 
+### Setting Up
 
 To create database of mock data
 From within root directory:
 
 ```sh
-mysql -h localhost -u root 
+mysql -h localhost -u root
 source db/schema.sql
 use reservation
 source mock-data/mock_data.sql
@@ -48,4 +48,24 @@ npm install
 npm run build
 npm start
 ```
+##API
 
+###GET request to the server to retrieve listing's information by id
+```sh
+curl -H "Content-Type: application/json" -X GET -d '{"listingId":"12345678"}' http://localhost:3003/api/listings/:listingId
+```
+
+###POST request to the server to add a new reservation
+```sh
+curl -H "Content-Type: application/json" -X POST -d '{"user":"Sharon Stone", "check_in":"2018-09-04", "check_out":"2018-09-09", "total_adults":"2", "total_pups":"2", "fees":"100.45", "tax":"60.27", "rent":"423.13", "listingId":"1234567"}' http://localhost:3003/api/reservations/new
+```
+
+###PUT request to update a listing at a specific id with a new rate
+```sh
+curl -H "Content-Type: application/json" -X PUT -d '{"listingId":"123456", "rate":"127.81"}' http://localhost:3003/api/listings/:listingId/rate/:rate
+```
+
+###DELETE request to delete a reservation by id
+```sh
+curl -H "Content-Type: application/json" -X DELETE -d '{"reservationId":"45012"}' http://localhost:3003/api/reservation/:reservationId
+```
