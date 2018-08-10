@@ -7,7 +7,7 @@ const getRandomFloat = (min, max) => Math.random() * (max - min + 1) + min;
 const generateListings = () => {
   let recordCount = 0;
   // write column headings
-  const columns = `id\treview_count\trating\tmin_stay\tmax_guests\tfees\trate\tweekly_views\n`;
+  const columns = `id\tname\treview_count\trating\tmin_stay\tmax_guests\tfees\trate\tweekly_views\n`;
   fs.writeFileSync('./sampleListings.tsv', columns);
 
   // enter records 100K at a time
@@ -17,6 +17,8 @@ const generateListings = () => {
     while (chunk < 100000) {
       // id
       record += `${recordCount + 1}\t`;
+      // listing name
+      record += `Listing ${recordCount + 1}\t`;
       // total review count
       record += `${getRandomInt(0, 700)}\t`;
       // average rating
@@ -95,5 +97,5 @@ const generateReservations = () => {
 };
 
 
-// generateListings();
-generateReservations();
+generateListings();
+// generateReservations();
