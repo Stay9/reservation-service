@@ -74,7 +74,7 @@ class DatePicker extends React.Component {
   }
 
   getFirstUnavailableDateAfterCheckIn() {
-    //TODO: work out bug - can't determine firstUnavailable if next upcoming reservation starts in the next month 
+    //TODO: work out bug - can't determine firstUnavailable if next upcoming reservation starts in the next month
     let context = this;
 
     let [year, month, date] = utils.getYearMonthDate(this.props.checkInDate);
