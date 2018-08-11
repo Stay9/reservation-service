@@ -65,7 +65,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"user":"Sharon Stone", "ch
 curl -H "Content-Type: application/json" -X PUT -d '{"listingId":"123456", "rate":"127.81"}' http://localhost:3003/api/listings/:listingId
 ```
 
-###DELETE request to delete a reservation by id
+### DELETE request to delete a reservation by id
 ```sh
 curl -H "Content-Type: application/json" -X DELETE -d '{"reservationId":"45012"}' http://localhost:3003/api/reservation/:reservationId
 ```
