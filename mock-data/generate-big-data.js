@@ -3,14 +3,10 @@ const fs = require('fs');
 
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 const getRandomFloat = (min, max) => Math.random() * (max - min + 1) + min;
-const formatFakerDate = (fakerdate) => JSON.stringify(fakerdate).slice(1, 11);
+const formatFakerDate = fakerdate => JSON.stringify(fakerdate).slice(1, 11);
 
 const generateListings = () => {
   let recordCount = 0;
-  // write column headings
-  // const columns = `id\tname\treview_count\trating\tmin_stay\tmax_guests\tfees\trate\tweekly_views\n`;
-  // fs.writeFileSync('./sampleListings.tsv', columns);
-
   // enter records 100K at a time
   while (recordCount < 10000000) {
     let record = '';
@@ -46,10 +42,6 @@ const generateListings = () => {
 
 const generateReservations = () => {
   let recordCount = 0;
-  // column headings
-  // const columns = `res_id\tlisting_id\tusername\tcheckin\tcheckout\tadults_count\tpups_count\ttotal_charge\n`;
-  // fs.writeFileSync('./sampleReservations.tsv', columns);
-
   // fill records
   while (recordCount < 10000000) {
     let record = '';
