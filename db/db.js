@@ -52,6 +52,17 @@ const deleteBookedDatesById = ({listingId}, callback) => {
   db.query(queryStr, listingId, callback);
 };
 
+// PUT method to update a listing at a specific id with a new rate
+const updateListingRateById = ({}, callback) => {
+
+};
+
+// DELETE method to remove reservation by reservationID
+const deleteReservationById = ({}, callback) => {
+
+};
+
+
 
 module.exports = {
   getListingById,
@@ -61,4 +72,6 @@ module.exports = {
   postNewBookedDates,
   postNewReservation,
   deleteBookedDatesById,
+  updateListingRateById,
+  deleteReservationById
 };
