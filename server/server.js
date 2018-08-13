@@ -37,7 +37,7 @@ app.get('/api/listings/:listingId', (req, res) => {
 app.get('/api/dates/:listingId', (req, res) => {
   // TODO: refactor using router
   let method = db.getBookedDatesByListingId;
-  let data = null; 
+  let data = null;
 
   if (req.query.targetDate) {
     method = db.getFirstBookedDateAfterTarget;
@@ -79,3 +79,30 @@ app.post('/api/reservations/new', (req, res) => {
   });
 
 });
+
+app.put('/api/listings/:listingId', (req, res) => {
+  db.updateListingRateById();
+});
+
+app.delete('/api/reservation/:reservationId', (req, res) => {
+  db.deleteReservationById();
+});
+
+// // GET request to the server to retrieve listing's information by id
+//
+// //curl -H "Content-Type: application/json" -X GET -d '{"listingId":"12345678"}' http://localhost:3003/api/listings/:listingId
+//
+// // POST request to the server to add a new reservation
+// ```sh
+// curl -H "Content-Type: application/json" -X POST -d '{"user":"Sharon Stone", "check_in":"2018-09-04", "check_out":"2018-09-09", "total_adults":"2", "total_pups":"2", "fees":"100.45", "tax":"60.27", "rent":"423.13", "listingId":"1234567"}' http://localhost:3003/api/reservations/new
+// ```
+//
+// ### PUT request to update a listing at a specific id with a new rate
+// ```sh
+// curl -H "Content-Type: application/json" -X PUT -d '{"listingId":"123456", "rate":"127.81"}' http://localhost:3003/api/listings/:listingId/rate/:rate
+// ```
+//
+// ### DELETE request to remove a reservation by id
+// ```sh
+// curl -H "Content-Type: application/json" -X DELETE -d '{"reservationId":"45012"}' http://localhost:3003/api/reservation/:reservationId
+// ```
