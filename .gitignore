@@ -5,6 +5,9 @@ node_modules
 *.config.js
 spec
 .circleci
+.Rhistory
+sampleListings.tsv
+sampleReservations.tsv
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
