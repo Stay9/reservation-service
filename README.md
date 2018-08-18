@@ -52,7 +52,7 @@ npm start
 
 ### GET request to the server to retrieve listing's information by id
 ```sh
-curl -H "Content-Type: application/json" -X GET -d '{"listingId":"12345678"}' http://localhost:3003/api/listings/:listingId
+curl -H "Content-Type: application/json" -X GET -d '{"listingId":"1234567"}' http://localhost:3003/api/listings/:listingId
 ```
 
 ### POST request to the server to add a new reservation
