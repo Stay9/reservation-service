@@ -99,9 +99,8 @@ const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + 
 
 const generateRateUpdateQuery = function (n) {
   let query = '';
-  let rate = getRandomInt(40, 700);
   for (let i = 0; i < n; i++) {
-    query += `UPDATE listings SET rate=${rate} WHERE id=${Math.floor(Math.random() * 1000000) + 9000000};\n`;
+    query += `UPDATE listings SET rate=${getRandomInt(40, 700)} WHERE id=${Math.floor(Math.random() * 1000000) + 9000000};\n`;
   }
   return query;
 };
