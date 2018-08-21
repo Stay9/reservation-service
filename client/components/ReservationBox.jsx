@@ -17,7 +17,7 @@ class ReservationBox extends React.Component {
   }
 
   getListingInfo() {
-    let url = `/api/listings/${this.props.listingId}`;
+    let url = `http://localhost:3003/api/listings/${this.props.listingId}`;
     fetch(url)
     .then(res => res.json())
     .then((res) => this.setListingDetails(res))
@@ -37,9 +37,10 @@ class ReservationBox extends React.Component {
   }
 
   setListingDetails (data) {
-    let listing = {
+    console.log('DATA', data);
+    const listing = {
       id: data.id,
-      hostId: data.hostId, 
+      hostId: data.hostId,
       rate: Math.round(data.rate),
       reviewsCount: data.reviews.total_reviews,
       avgRating: data.reviews.avg_rating,
@@ -61,17 +62,17 @@ class ReservationBox extends React.Component {
 
     return (
       <div className="container">
-        <ListingSnippet 
-          listing={this.state.listing} 
+        <ListingSnippet
+          listing={this.state.listing}
         />
-        <ReservationDetails 
-          listing={this.state.listing} 
-          onDatesSet={this.handleDatesSelect.bind(this)} 
+        <ReservationDetails
+          listing={this.state.listing}
+          onDatesSet={this.handleDatesSelect.bind(this)}
           onDatesReset={this.handleDatesReset.bind(this)}
         />
-        <Promo 
-          views={this.state.listing.weeklyViews} 
-          hasDates={this.state.hasDates} 
+        <Promo
+          views={this.state.listing.weeklyViews}
+          hasDates={this.state.hasDates}
         />
       </div>
     );

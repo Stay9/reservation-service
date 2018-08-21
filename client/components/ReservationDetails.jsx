@@ -6,24 +6,30 @@ import Book from './Book.jsx';
 class ReservationDetails extends React.Component {
   constructor(props) {
     super(props);
-    this.state= {
+    this.state = {
       checkIn: null,
       checkOut: null,
       adults: 1,
-      pups: 0
-    }
+      pups: 0,
+    };
   }
 
   postNewReservation () {
-    let url ='/api/reservations/new' + this.props.listingId;
+    let url ='http://localhost:3003/api/reservations/new' + this.props.listingId;
+    const { listing, fees, taxRate, rate } = this.props.listing;
+    let stayLength = Math.round((this.state.checkOut.getTime() - this.state.checkIn.getTime()) / (1000*60*60*24));
+    let base = rate * stayLength;
+    let tax = Math.round((base + fees)*taxRate/100);
+    let cost = base + tax + fees;
+
     let options = {
       listingId: this.props.listing.id,
       checkIn: this.state.checkIn,
       checkOut: this.state.checkOut,
       guestId: 1,
-      adults: this.state.adults, 
+      adults: this.state.adults,
       pups: this.state.pups,
-
+      total_charge: cost
     }
 
     fetch('http://localhost:3003/api/reservations/new', options)
@@ -72,7 +78,7 @@ class ReservationDetails extends React.Component {
 
   resetReservationDetails () {
     this.setState({
-      adults: 1, 
+      adults: 1,
       pups: 0
     }, this.clearDates);
   }
@@ -101,17 +107,17 @@ class ReservationDetails extends React.Component {
   render () {
     return (
       <div className='details-container'>
-        <Dates 
+        <Dates
           listing={this.props.listing}
           checkIn={this.state.checkIn}
           checkOut={this.state.checkOut}
-          onCheckIn={this.setCheckIn.bind(this)} 
-          onCheckOut={this.setCheckOut.bind(this)} 
+          onCheckIn={this.setCheckIn.bind(this)}
+          onCheckOut={this.setCheckOut.bind(this)}
           onReset={this.clearDates.bind(this)}/>
-        <Guests 
+        <Guests
           adults={this.state.adults}
           pups={this.state.pups}
-          className="guests" 
+          className="guests"
           maxGuests={this.props.listing.maxGuests}
           onIncrease={this.increaseGuests.bind(this)}
           onDecrease={this.decreaseGuests.bind(this)}/>

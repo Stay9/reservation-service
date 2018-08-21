@@ -8,6 +8,7 @@ spec
 .Rhistory
 sampleListings.tsv
 sampleReservations.tsv
+sampleCassandraReservations.tsv
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
