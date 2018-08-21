@@ -57,7 +57,7 @@ curl -H "Content-Type: application/json" -X GET -d '{"listingId":"1234567"}' htt
 
 ### POST request to the server to add a new reservation
 ```sh
-curl -H "Content-Type: application/json" -X POST -d '{"user":"Sharon Stone", "check_in":"2018-09-04", "check_out":"2018-09-09", "total_adults":"2", "total_pups":"2", "fees":"100.45", "tax":"60.27", "rent":"423.13", "listingId":"1234567"}' http://localhost:3003/api/reservations/new
+curl -H "Content-Type: application/json" -X POST -d '{listingId: "1234567", "checkIn":"2018-09-04", "checkOut":"2018-09-09", "adults":"2", "pups":"2", "total_charge":"423.13"}' http://localhost:3003/api/reservations/new
 ```
 
 ### PUT request to update a listing at a specific id with a new rate
