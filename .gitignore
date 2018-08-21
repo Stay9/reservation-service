@@ -10,6 +10,8 @@ sampleListings.tsv
 sampleReservations.tsv
 sampleCassandraReservations.tsv
 
+newrelic.js
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
