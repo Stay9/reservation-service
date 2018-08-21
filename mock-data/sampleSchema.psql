@@ -1,0 +1,33 @@
+-- sdc schema
+DROP TABLE IF EXISTS listings;
+
+CREATE TABLE listings (
+  ID serial,
+  NAME varchar,
+  REVIEW_COUNT int,
+  RATING float,
+  MIN_STAY int,
+  MAX_GUESTS int,
+  FEES int,
+  RATE int,
+  WEEKLY_VIEWS int,
+  PRIMARY KEY(ID)
+);
+
+DROP TABLE IF EXISTS reservations;
+
+CREATE TABLE reservations (
+  ID serial,
+  LISTING_ID int,
+  USERNAME varchar(100),
+  CHECKIN date,
+  CHECKOUT date,
+  ADULTS_COUNT int,
+  PUPS_COUNT int,
+  TOTAL_CHARGE float,
+  FOREIGN KEY(listing_id) references listings(ID)
+);
+
+\copy listings FROM '/Users/enjikim/Desktop/HackReactor/Stay9/reservation-service/mock-data/sampleListings.tsv' DELIMITER E'\t';
+
+\copy reservations FROM '/Users/enjikim/Desktop/HackReactor/Stay9/reservation-service/mock-data/sampleReservations.tsv' DELIMITER E'\t';
