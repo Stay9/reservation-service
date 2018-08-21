@@ -9,7 +9,7 @@ const db = mysql.createConnection({
 });
 
 
-const getListingById = ({listingId}, callback) => {
+const getListingById = (listingId, callback) => {
   const queryStr = `SELECT * from listings WHERE id = ? `;
   db.query(queryStr, listingId, callback);
 };
@@ -35,10 +35,10 @@ const getFirstBookedDateAfterTarget = ([listingId, year, month, date], callback)
   db.query(queryStr, [listingId, startDate, endDate], callback)
 }
 
-const postNewBookedDates = (data, callback) => {
-  const queryStr = `INSERT INTO booked_dates (listing_id, check_in, check_out) VALUES (?)`;
-  db.query(queryStr, [data.listingId, data.checkIn, data.checkOut], callback);
-}
+// edit to send in col info for whole record in reservations table
+// const postNewBookedDates = (data, callback) => {
+//   const queryStr = 'INSERT INTO booked_dates (listing_id, check_in, check_out) VALUES (?)';
+//   db.query(queryStr, [data.listingId, data.checkIn, data.checkOut], callback);
 
 const postNewReservation = ({guestId, bookedDatesId, guests, total}, callback) => {
   const queryStr = `INSERT INTO reservations `
@@ -53,13 +53,15 @@ const deleteBookedDatesById = ({listingId}, callback) => {
 };
 
 // PUT method to update a listing at a specific id with a new rate
-const updateListingRateById = ({}, callback) => {
-
+const updateListingRateById = ({rate, listingId}, callback) => {
+  const queryStr = `UPDATE listings SET rate = ? WHERE id = ?`;
+  db.query(queryStr, [rate, listingId], callback);
 };
 
 // DELETE method to remove reservation by reservationID
-const deleteReservationById = ({}, callback) => {
-
+const deleteReservationById = ({resId}, callback) => {
+  const queryStr = `DELETE FROM reservations WHERE id = ?`;
+  db.query(queryStr, resId, callback);
 };
 
 
@@ -73,5 +75,5 @@ module.exports = {
   postNewReservation,
   deleteBookedDatesById,
   updateListingRateById,
-  deleteReservationById
+  deleteReservationById,
 };

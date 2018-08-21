@@ -1,5 +1,7 @@
 const faker = require('faker');
 const fs = require('fs');
+const uuidv4 = require('uuid/v4');
+
 
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 const getRandomFloat = (min, max) => Math.random() * (max - min + 1) + min;
@@ -91,6 +93,65 @@ const generateReservations = () => {
   console.log('number inserted:', recordCount);
 };
 
+// excludes incrementing id
+const generateCassandraReservations = () => {
+  let recordCount = 0;
+  // fill records
+  while (recordCount < 10000000) {
+    let record = '';
+    let chunk = 0;
+    while (chunk < 1000000) {
+      record += `${uuidv4()}\t`;
+      // listing id
+      record += `${getRandomInt(1, 10000000)}\t`;
+      // user
+      record += `${faker.name.findName()}\t`;
+      // check in
+      let checkin = formatFakerDate(faker.date.between('2018-01-01', '2018-05-31'));
+      record += `${checkin}\t`;
 
+      // check out
+      let year = parseInt(checkin.slice(0, 4));
+      let month = parseInt(checkin.slice(5, 7));
+      let day = parseInt(checkin.slice(8, 10));
+      if (day > 28) {
+        day = 10;
+        month += 1;
+      }
+      year = year.toString();
+      month = ('0').concat(month.toString());
+      day = day.toString();
+
+      if (day.length === 1) {
+        day = ('0').concat(day.toString());
+      }
+      const maxCheckout = `${year}-${month}-${day}`;
+      const checkout = formatFakerDate(faker.date.between(checkin, maxCheckout));
+      record += `${checkout}\t`;
+      // adults count
+      record += `${getRandomInt(1, 10)}\t`;
+      // pups count
+      record += `${getRandomInt(0, 10)}\t`;
+      // total charge
+      record += `${getRandomFloat(50.00, 3000.00)}`;
+      record += '\n';
+      recordCount += 1;
+      chunk += 1;
+    }
+    console.log(recordCount);
+    fs.appendFileSync('./sampleCassandraReservations.tsv', record);
+  }
+  console.log('number inserted:', recordCount);
+};
+
+// console.time("listings");
 // generateListings();
-generateReservations();
+// console.timeEnd("listings");
+
+// console.time("reservations");
+// generateReservations();
+// console.timeEnd("reservations");
+
+console.time("cass-reservations");
+generateCassandraReservations();
+console.timeEnd("cass-reservations");
